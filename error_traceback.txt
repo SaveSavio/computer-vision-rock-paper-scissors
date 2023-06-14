@@ -1,0 +1,21 @@
+
+                         /Users/saveriotufano/miniconda
+                         /Users/saveriotufano/miniconda/envs/tensorflow-env
+base                  *  /Users/saveriotufano/opt/anaconda3
+computer_vision          /Users/saveriotufano/opt/anaconda3/envs/computer_vision
+py2                      /Users/saveriotufano/opt/anaconda3/envs/py2
+
+(base) saveriotufano@Saverios-MacBook-Air computer-vision-rock-paper-scissors % conda activa computer_vision
+
+CommandNotFoundError: No command 'conda activa'.
+Did you mean 'conda activate'?
+
+(base) saveriotufano@Saverios-MacBook-Air computer-vision-rock-paper-scissors % conda activate computer_vision
+(computer_vision) saveriotufano@Saverios-MacBook-Air computer-vision-rock-paper-scissors % python RPS-Template.py        
+2023-04-20 17:40:03.707631: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-04-20 17:40:08.665842: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:No training configuration found in the save file, so the model was *not* compiled. Compile it manually.
+[ WARN:0@7.051] global /private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_5a1v4y7k9y/croot/opencv-suite_1676472757237/work/modules/videoio/src/cap_gstreamer.cpp (862) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created
+1/1 [==============================] - 1s 1s/step
