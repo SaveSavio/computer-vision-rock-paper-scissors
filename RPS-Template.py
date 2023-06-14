@@ -18,7 +18,7 @@ while True:
     resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
 
     image_np = np.array(resized_frame)
-    normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
+    normalized_image = (image_np.astype(np.float32) / 127.5) - 1 # Normalize the image
     print('normalized image shape: ', normalized_image.shape)
     data[0] = normalized_image
     prediction = model.predict(data)
