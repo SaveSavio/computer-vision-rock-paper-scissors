@@ -4,6 +4,9 @@ def get_computer_choice():
     computer_choice = random.choice(variables)
     return computer_choice
 
+computer_choice = get_computer_choice()
+print(computer_choice)
+
 def get_user_choice():
     variables = ['rock', 'paper', 'scissors']
     while True:
@@ -18,6 +21,6 @@ def get_user_choice():
             print("Invalid choise. Please, enter 0, 1 or 2")
             return
         return player_choice
-    
-def get_winner():
-    pass
+
+player_choice = get_user_choice()
+print(player_choice)
