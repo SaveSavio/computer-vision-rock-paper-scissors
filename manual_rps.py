@@ -31,7 +31,7 @@ def get_winner(computer_choice, player_choice):
     else:
         print("You lost!")
 
-def play_game():
+def play():
     computer_choice = get_computer_choice()
     player_choice = get_user_choice()
     get_winner(computer_choice, player_choice)
