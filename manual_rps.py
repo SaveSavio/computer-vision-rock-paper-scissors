@@ -1,11 +1,11 @@
 def get_computer_choice():
     import random
     variables = ['rock', 'paper', 'scissors']
+    # randomly chooses from the variables list
     computer_choice = random.choice(variables)
     return computer_choice
 
 def get_user_choice():
-    variables = ['rock', 'paper', 'scissors']
     while True:
         choice = input("Choose between rock (0), paper(1), or scissors(2)")
         if choice == '1':
@@ -20,6 +20,11 @@ def get_user_choice():
         return player_choice
     
 def get_winner(computer_choice, player_choice):
+    """
+        Defines the rules of the game
+            Parameters: computer' and players choice, can be "rock", "paper" or "scissors"
+            Returns: nothing. Prints the winner on screen.
+    """
     if player_choice == computer_choice:
         print("It's a tie")
     elif (

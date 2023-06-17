@@ -1,12 +1,3 @@
-def get_computer_choice():
-    import random
-    variables = ['rock', 'paper', 'scissors']
-    computer_choice = random.choice(variables)
-    return computer_choice
-
-computer_choice = get_computer_choice()
-print(computer_choice)
-
 def get_user_choice():
     variables = ['rock', 'paper', 'scissors']
     while True:
