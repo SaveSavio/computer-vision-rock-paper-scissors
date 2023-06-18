@@ -23,15 +23,18 @@ class camera_rps:
 
 
         def countdown(end_time):
+            """
+                Prints a countdown on the screen
+                Parameters: the duration of the countdown in seconds
+                Returns
+            """
             while end_time > 0:
                 print(end_time)
                 end_time -= 1
                 time.sleep(1)  # Pause for 1 second
 
             print("Countdown finished!")
-
-        # Example usage
-        countdown(10)  # Countdown from 10 seconds
+            return 1
 
 
 
