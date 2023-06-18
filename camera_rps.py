@@ -2,16 +2,24 @@ from keras.models import load_model  # TensorFlow is required for Keras to work
 import cv2  # Install opencv-python
 import numpy as np
 import time
+import random
+
 
 class camera_rps:
 
-    def __init__(self, num_lives = 3):
+    def __init__(self, num_wins = 3):
         #TODO: insert docstring
         """
+        Initializes the class, definining the number of wins necessary to win the match,
+        initializing the computer and user wins to zero.
+            Parameters:
+                the number of wins necessary to win the match
         """
 
-        self.num_lives = num_lives
-
+        # sets the number of wins necessary to win the game
+        self.num_wins = num_wins
+        self.computer_wins = 0
+        self.user_wins = 0
         # Disable scientific notation for clarity
         np.set_printoptions(suppress=True)
         # Load the model
@@ -22,7 +30,33 @@ class camera_rps:
         self.camera = cv2.VideoCapture(0)
 
 
+
+    def get_winner(self, computer_choice, player_choice):
+        """
+            Defines the rules of the game
+                Parameters: computer' and players choice, can be "rock", "paper" or "scissors"
+                Returns: nothing. Prints the winner on screen.
+        """
+        if player_choice == computer_choice:
+            print("It's a tie")
+        elif (
+            (player_choice == "rock" and computer_choice == "scissors")
+            or (player_choice == "paper" and computer_choice == "rock")
+            or (player_choice == "scissors" and computer_choice == "paper")
+        ):
+            print("You win!")
+            self.user_wins += 1
+            return self.user_wins
+        else:
+            print("You lost!")
+            self.computer_wins += 1
+            return self.computer_wins
+
+
+
     def countdown(self, seconds):
+        # import a local instance of "time"
+        # this is necessary so to not interfere with the get_prediction instance
         import time as time_1
 
         start_time = time_1.time()
@@ -33,7 +67,7 @@ class camera_rps:
             # print remaining time in [s]
             print(remaining_seconds+1)
             # Add a small delay to prevent the loop from consuming too much CPU
-            time.sleep(1)
+            time_1.sleep(1)
 
         print("Shoot!")
 
@@ -51,14 +85,16 @@ class camera_rps:
                 Returns: the prediction of the RPS keras model
         """
         # set the acquisition duration in seconds
-        duration = 3
+        duration = 30
         # Get the current time
         start_time = time.time()
         # Calculate the end time by adding the duration to the start time
         end_time = start_time + duration
 
         while time.time() < end_time:
+
             self.countdown(3)
+        
             # Grab the webcamera's image.
             ret, image = self.camera.read()
             # Resize the raw image into (224-height,224-width) pixels
@@ -69,6 +105,7 @@ class camera_rps:
             image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
             # Normalize the image array
             image = (image / 127.5) - 1
+            
 
             # Predicts the model
             prediction = self.model.predict(image)
@@ -91,3 +128,15 @@ class camera_rps:
         cv2.destroyAllWindows()
 
         return class_name, confidence_score
+    
+
+    def get_computer_choice():
+        """
+            Randomly choose the computer selection
+            Parameters: none
+            Returns: random choice between rock, paper, scissors
+        """
+        variables = ['rock', 'paper', 'scissors']
+        # randomly chooses from the variables list
+        computer_choice = random.choice(variables)
+        return computer_choice
