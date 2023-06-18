@@ -22,23 +22,23 @@ class camera_rps:
         self.camera = cv2.VideoCapture(0)
 
 
-        def countdown(end_time):
-            """
-                Prints a countdown on the screen
-                Parameters: the duration of the countdown in seconds
-                Returns
-            """
-            while end_time > 0:
-                print(end_time)
-                end_time -= 1
-                time.sleep(1)  # Pause for 1 second
+    def countdown(self, seconds):
+        import time as time_1
 
-            print("Countdown finished!")
-            return 1
+        start_time = time_1.time()
+        end_time = start_time + seconds
+        
+        while time_1.time() < end_time:
+            remaining_seconds = int(end_time - time_1.time())
+            # print remaining time in [s]
+            print(remaining_seconds+1)
+            # Add a small delay to prevent the loop from consuming too much CPU
+            time.sleep(1)
+
+        print("Shoot!")
 
 
-
-    def get_prediction(camera, model, class_names):
+    def get_prediction(self):
         """
             Returns a prediction from the keras RPS model
             
@@ -50,32 +50,35 @@ class camera_rps:
             
                 Returns: the prediction of the RPS keras model
         """
+        # set the acquisition duration in seconds
+        duration = 3
+        # Get the current time
+        start_time = time.time()
+        # Calculate the end time by adding the duration to the start time
+        end_time = start_time + duration
 
-        while True:
+        while time.time() < end_time:
+            self.countdown(3)
             # Grab the webcamera's image.
-            ret, image = camera.read()
-
+            ret, image = self.camera.read()
             # Resize the raw image into (224-height,224-width) pixels
             image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
-
             # Show the image in a window
             cv2.imshow("Webcam Image", image)
-
             # Make the image a numpy array and reshape it to the models input shape.
             image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
-
             # Normalize the image array
             image = (image / 127.5) - 1
 
             # Predicts the model
-            prediction = model.predict(image)
+            prediction = self.model.predict(image)
             index = np.argmax(prediction)
-            class_name = class_names[index]
+            class_name = self.class_names[index]
             confidence_score = prediction[0][index]
 
             # Print prediction and confidence score
-            print("Class:", class_name[2:], end="")
-            print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
+            # print("Class:", class_name[2:], end="")
+            # print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
 
             # Listen to the keyboard for presses.
             keyboard_input = cv2.waitKey(1)
@@ -84,7 +87,7 @@ class camera_rps:
             if keyboard_input == 27:
                 break
 
-        camera.release()
+        self.camera.release()
         cv2.destroyAllWindows()
 
         return class_name, confidence_score
