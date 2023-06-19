@@ -7,31 +7,6 @@ import time
 import random
 
 
-def play_game():
-    # define the number of wins necessary to win the game
-    num_wins = 3
-    # initilize the number of computer and user wins to zero
-    computer_wins = 0
-    user_wins = 0
-    game = camera_rps(num_wins)
-    while True:
-        player_choice = game.get_prediction()
-        computer_choice = game.get_computer_choice()
-        user_win, computer_win = game.get_winner(computer_choice, player_choice)
-        user_wins += user_win
-        computer_wins += computer_win
-        if computer_wins == 3:
-            print("Computer wins the game")
-            return
-        elif user_wins == 3:
-            print("You win, congrats!")
-            return
-        else:
-            print(f"Score:\nuser: {user_wins}\ncomputer: {computer_wins}")
-            print('play another turn')
-
-    # I should add a way of exiting the game (use ESC)
-
 class camera_rps:
 
     def __init__(self):
@@ -52,22 +27,21 @@ class camera_rps:
         self.camera = cv2.VideoCapture(0)
 
 
-    # Functions that allows to play the game by calling the defining the parameters and calling the class Hangman
-
-
-
     def get_winner(self, computer_choice, player_choice):
         """
             Defines the rules of the game
                 Parameters: computer' and players choice, can be "rock", "paper" or "scissors"
                 Returns: nothing. Prints the winner on screen.
         """
+        print(f'Player chose {player_choice}')
+        print(f'Computer chose {computer_choice}')
+        
         if player_choice == computer_choice:
             print("It's a tie")
         elif (
-            (player_choice == "rock" and computer_choice == "scissors")
-            or (player_choice == "paper" and computer_choice == "rock")
-            or (player_choice == "scissors" and computer_choice == "paper")
+            (player_choice == "Rock" and computer_choice == "Scissors")
+            or (player_choice == "Paper" and computer_choice == "Rock")
+            or (player_choice == "Scissors" and computer_choice == "Paper")
         ):
             print("You win!")
             user_win = 1
@@ -113,7 +87,7 @@ class camera_rps:
                 Returns: the prediction of the RPS keras model
         """
         # set the acquisition duration in seconds
-        duration = 30
+        duration = 3
         # Get the current time
         start_time = time.time()
         # Calculate the end time by adding the duration to the start time
@@ -138,12 +112,12 @@ class camera_rps:
             # Predicts the model
             prediction = self.model.predict(image)
             index = np.argmax(prediction)
-            class_name = self.class_names[index]
+            class_name = self.class_names[index][2:-1]
             confidence_score = prediction[0][index]
 
             # Print prediction and confidence score
-            # print("Class:", class_name[2:], end="")
-            # print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
+            print("Class:", class_name, end="")
+            print("\nConfidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
 
             # Listen to the keyboard for presses.
             keyboard_input = cv2.waitKey(1)
@@ -155,17 +129,17 @@ class camera_rps:
         self.camera.release()
         cv2.destroyAllWindows()
 
-        return class_name, confidence_score
+        return class_name
     
 
 
-    def get_computer_choice():
+    def get_computer_choice(self):
         """
             Randomly choose the computer selection
             Parameters: none
             Returns: random choice between rock, paper, scissors
         """
-        variables = ['rock', 'paper', 'scissors']
+        variables = ['Rock', 'Paper', 'Scissors']
         # randomly chooses from the variables list
         computer_choice = random.choice(variables)
         return computer_choice
