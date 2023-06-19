@@ -1,26 +1,47 @@
-from keras.models import load_model  # TensorFlow is required for Keras to work
-import cv2  # Install opencv-python
+# TensorFlow is required for Keras to work
+from keras.models import load_model  
+# opencv-python
+import cv2
 import numpy as np
 import time
 import random
 
 
+def play_game():
+    # define the number of wins necessary to win the game
+    num_wins = 3
+    # initilize the number of computer and user wins to zero
+    computer_wins = 0
+    user_wins = 0
+    game = camera_rps(num_wins)
+    while True:
+        player_choice = game.get_prediction()
+        computer_choice = game.get_computer_choice()
+        user_win, computer_win = game.get_winner(computer_choice, player_choice)
+        user_wins += user_win
+        computer_wins += computer_win
+        if computer_wins == 3:
+            print("Computer wins the game")
+            return
+        elif user_wins == 3:
+            print("You win, congrats!")
+            return
+        else:
+            print(f"Score:\nuser: {user_wins}\ncomputer: {computer_wins}")
+            print('play another turn')
+
+    # I should add a way of exiting the game (use ESC)
+
 class camera_rps:
 
-    def __init__(self, num_wins=3):
-        #TODO: insert docstring
+    def __init__(self):
         """
         Initializes the class, definining the number of wins necessary to win the match,
         initializing the computer and user wins to zero.
             Parameters:
-                the number of wins necessary to win the match
+                the number of wins necessary to win the match (3 by default)
         """
 
-        # sets the number of wins necessary to win the game
-        self.num_wins = num_wins
-        # initilize the number of computer and user wins to zero
-        self.computer_wins = 0
-        self.user_wins = 0
         # Disable scientific notation for clarity
         np.set_printoptions(suppress=True)
         # Load the model
@@ -33,18 +54,6 @@ class camera_rps:
 
     # Functions that allows to play the game by calling the defining the parameters and calling the class Hangman
 
-    def play_game(self):
-        game = camera_rps(num_wins=3)
-        while True:
-            player_choice = self.get_prediction()
-            computer_choice = self.get_computer_choice()
-            self.get_winner(self, computer_choice, player_choice)
-            if self.computer_wins == 3:
-                print("Computer wins the game")
-                return
-            elif self.user_wins == 3:
-                print("You win, congrats!")
-            return
 
 
     def get_winner(self, computer_choice, player_choice):
@@ -61,12 +70,14 @@ class camera_rps:
             or (player_choice == "scissors" and computer_choice == "paper")
         ):
             print("You win!")
-            self.user_wins += 1
-            return self.user_wins
+            user_win = 1
+            computer_win = 0
+            return user_win, computer_win
         else:
             print("You lost!")
-            self.computer_wins += 1
-            return self.computer_wins
+            user_win = 0
+            computer_win = 1
+            return user_win, computer_win
 
 
 
