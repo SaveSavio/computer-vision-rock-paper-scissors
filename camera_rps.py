@@ -7,7 +7,7 @@ import random
 
 class camera_rps:
 
-    def __init__(self, num_wins = 3):
+    def __init__(self, num_wins=3):
         #TODO: insert docstring
         """
         Initializes the class, definining the number of wins necessary to win the match,
@@ -18,6 +18,7 @@ class camera_rps:
 
         # sets the number of wins necessary to win the game
         self.num_wins = num_wins
+        # initilize the number of computer and user wins to zero
         self.computer_wins = 0
         self.user_wins = 0
         # Disable scientific notation for clarity
@@ -29,6 +30,21 @@ class camera_rps:
         # CAMERA can be 0 or 1 based on default camera of your computer
         self.camera = cv2.VideoCapture(0)
 
+
+    # Functions that allows to play the game by calling the defining the parameters and calling the class Hangman
+
+    def play_game(self):
+        game = camera_rps(num_wins=3)
+        while True:
+            player_choice = self.get_prediction()
+            computer_choice = self.get_computer_choice()
+            self.get_winner(self, computer_choice, player_choice)
+            if self.computer_wins == 3:
+                print("Computer wins the game")
+                return
+            elif self.user_wins == 3:
+                print("You win, congrats!")
+            return
 
 
     def get_winner(self, computer_choice, player_choice):
@@ -70,6 +86,7 @@ class camera_rps:
             time_1.sleep(1)
 
         print("Shoot!")
+
 
 
     def get_prediction(self):
@@ -129,6 +146,7 @@ class camera_rps:
 
         return class_name, confidence_score
     
+
 
     def get_computer_choice():
         """
