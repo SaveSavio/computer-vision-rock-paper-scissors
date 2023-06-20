@@ -70,10 +70,12 @@ class camera_rps:
             remaining_seconds = int(end_time - time.time())
             # print remaining time in [s]
             print(remaining_seconds + 1)
+            # Add a small delay to prevent the loop from consuming too much CPU
             time.sleep(1)
 
-    def destroywindows(self):
-        cv2.destroyAllWindows()
+        #print("Shoot!")
+
+
 
     def get_prediction(self):
         """
@@ -87,9 +89,16 @@ class camera_rps:
             
                 Returns: the prediction of the RPS keras model
         """
-        #cv2.destroyAllWindows()
+        # set the acquisition duration in seconds
+        duration = 3
+        # Get the current time
+        start_time = time.time()
+        # Calculate the end time by adding the duration to the start time
+        end_time = start_time + duration
 
-        while True:
+        while time.time() < end_time:
+            self.countdown(3)
+            print('Shoot!')
 
             # Grab the webcamera's image.
             ret, image = self.camera.read()
@@ -102,9 +111,6 @@ class camera_rps:
             # Normalize the image array
             image = (image / 127.5) - 1
             
-            self.countdown(3)
-            print('Shoot!')
-
             # Predicts the model
             prediction = self.model.predict(image)
             index = np.argmax(prediction)
@@ -121,15 +127,14 @@ class camera_rps:
             # 27 is the ASCII for the esc key on your keyboard.
             if keyboard_input == 27:
                 break
-            
-            break
-
+        
         #TODO: work on this bit of code to solve the issues with workflow
         # read the documentation to understand the expectations
         #self.countdown(3)
         #self.camera.release()
         #cv2.destroyAllWindows()
         cv2.waitKey(2)  # Add this line
+
         return class_name
     
 
