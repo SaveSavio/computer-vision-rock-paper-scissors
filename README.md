@@ -1,7 +1,9 @@
 # Computer Vision RPS
 Rock-Paper-Scissors is a game in which each player simultaneously shows one of three hand signals representing rock, paper, or scissors. Rock beats scissors. Scissors beats paper. Paper beats rock. The player who shows the first option that beats the other player's option wins.
-<br><br>
-This is an implementation of an interactive Rock-Paper-Scissors game, in which the user can play with the computer using the camera. 
+
+This is an implementation of an interactive Rock-Paper-Scissors game, in which the user can play against the computer using a webcam.
+
+<br>
 
 ## Create a computer vision system (model)
 
@@ -27,7 +29,9 @@ The code has been tested on a ARM64 M1 using Tensorflow-macos, Tensorflow-metal 
 Package requirements can be found in the file
 - requirements.txt
 
-## Testing the enviroment and model
+<br>
+
+## Testing the enviroment and the model
 Once all the requirements are installed, the model can be tested with the code provided, in the Export Window, by Teacheable Machines.
 
 ```python
@@ -83,4 +87,33 @@ while True:
 camera.release()
 cv2.destroyAllWindows()
 ```
-##
+The terminal will stream the predictions made by the model.
+
+<br>
+
+## The camera_rps class
+The file camera_rps.py contains the necessary packages requiring import and the *camera_rps* class that contains all the relevant methods of the game.
+
+```python
+def __init__(self):
+```
+initializes the class, definining the number of wins necessary to win the match, initializing the computer and user wins to zero.
+
+```python
+def get_winner(self, computer_choice, player_choice):
+```
+defines the rules of the game
+```python
+def countdown(self, seconds):
+```
+defines a *"3...2...1...shoot!"* countdown necessary to simulate the game rules but it is also necessary to determine the moment in time in which a snapshot from the webcam is taken and passed to the Tensorflow engine".
+
+```python
+def get_prediction(self):
+```
+is the "engine" of the game, taking a snapshot from the camera, passing it to Tensorflow and returning one of the classes *rock, paper, scissors* based on their likelyhood (the class with higher confidence score is returned).
+
+```python
+def get_computer_choice(self):
+```
+simply randomly chooses between the three availabe classes which are stored in an array of strings.
