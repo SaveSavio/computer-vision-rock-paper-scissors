@@ -45,12 +45,12 @@ class camera_rps:
             or (player_choice == "Paper" and computer_choice == "Rock")
             or (player_choice == "Scissors" and computer_choice == "Paper")
         ):
-            print("You win!")
+            print("You win the turn!")
             user_win = 1
             computer_win = 0
             #return user_win, computer_win
         else:
-            print("You lost!")
+            print("You lost the turn.")
             user_win = 0
             computer_win = 1
 
@@ -72,8 +72,6 @@ class camera_rps:
             print(remaining_seconds + 1)
             time.sleep(1)
 
-    def destroywindows(self):
-        cv2.destroyAllWindows()
 
     def get_prediction(self):
         """
@@ -87,7 +85,6 @@ class camera_rps:
             
                 Returns: the prediction of the RPS keras model
         """
-        #cv2.destroyAllWindows()
 
         while True:
 

@@ -97,7 +97,7 @@ The file camera_rps.py contains the necessary packages requiring import and the 
 ```python
 def __init__(self):
 ```
-initializes the class, definining the number of wins necessary to win the match, initializing the computer and user wins to zero.
+initializes the class by loading the model and the labels that are going to be used.
 
 ```python
 def get_winner(self, computer_choice, player_choice):
@@ -117,3 +117,47 @@ is the "engine" of the game, taking a snapshot from the camera, passing it to Te
 def get_computer_choice(self):
 ```
 simply randomly chooses between the three availabe classes which are stored in an array of strings.
+
+## main.py
+
+The *main* file contains the necessary instructions to win the game.
+
+```python
+from camera_rps import camera_rps
+
+def play_game():
+    
+    # initilize the number of computer and user wins to zero
+    computer_wins = 0
+    user_wins = 0
+    # create an instance of the class camera_rps called game
+    game = camera_rps()
+    while True:
+        # get the player choice through the camera
+        player_choice = game.get_prediction()
+        # get the computer choice by randomly selecting a c lass
+        computer_choice = game.get_computer_choice()
+        # use the method get_winner to determine the winner of the turn
+        user_win, computer_win = game.get_winner(computer_choice, player_choice)
+        # increment the number of wins
+        user_wins += user_win
+        computer_wins += computer_win
+
+        # checks if one between the player and the computer has reached three turn victories,
+        # otherwise continutes the loop
+        if computer_wins == 3:
+            print("Computer wins the game")
+            break
+        elif user_wins == 3:
+            print("You win, congrats!")
+            break
+        else:
+            print(f"User score: {user_wins}\nComputer score: {computer_wins}")
+            print('Play another turn')
+
+    # I should add a way of exiting the game (use ESC)
+    return
+
+
+play_game()
+```
