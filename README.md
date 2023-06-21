@@ -1,7 +1,7 @@
 # Computer Vision RPS
 Rock-Paper-Scissors is a game in which each player simultaneously shows one of three hand signals representing rock, paper, or scissors. Rock beats scissors. Scissors beats paper. Paper beats rock. The player who shows the first option that beats the other player's option wins.
 
-This is an implementation of an interactive Rock-Paper-Scissors game, in which the user can play against the computer using a webcam.
+This is an implementation of an interactive Rock-Paper-Scissors game, in which the user can play against a computer using a webcam.
 
 <br>
 
@@ -106,12 +106,12 @@ defines the rules of the game
 ```python
 def countdown(self, seconds):
 ```
-defines a *"3...2...1...shoot!"* countdown necessary to simulate the game rules but it is also necessary to determine the moment in time in which a snapshot from the webcam is taken and passed to the Tensorflow engine".
+defines a *"3...2...1...shoot!"* countdown necessary to simulate the game rules. The countdown is also necessary to determine the moment in time in which a snapshot from the webcam is taken and passed to the Tensorflow engine.
 
 ```python
 def get_prediction(self):
 ```
-is the "engine" of the game, taking a snapshot from the camera, passing it to Tensorflow and returning one of the classes *rock, paper, scissors* based on their likelyhood (the class with higher confidence score is returned).
+is the *engine* of the game, taking a snapshot from the camera, passing it to Tensorflow and returning one of the classes *rock, paper, scissors* based on their likelyhood (the class with higher confidence score is returned).
 
 ```python
 def get_computer_choice(self):
