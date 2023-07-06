@@ -1,6 +1,5 @@
 # TensorFlow is required for Keras to work
-from keras.models import load_model  
-# opencv-python
+from keras.models import load_model 
 import cv2
 import numpy as np
 import time
@@ -23,10 +22,10 @@ class camera_rps:
         
         self.camera = cv2.VideoCapture(0)
 
-
     def get_winner(self, computer_choice, player_choice):
         """
             Defines the rules of the game
+
                 Parameters: computer and player choices, can be "rock", "paper" or "scissors"
                 Returns: two integers (user_win, computer_win). They will be 1 or 0 depending on the winner
         """
@@ -56,7 +55,6 @@ class camera_rps:
 
         return user_win, computer_win
 
-
     def countdown(self, seconds):
         # import a local instance of "time"
         # this is necessary so to not interfere with the get_prediction instance
@@ -70,7 +68,6 @@ class camera_rps:
             
             print(remaining_seconds + 1)
             time.sleep(1)
-
 
     def get_prediction(self):
         """
@@ -86,7 +83,6 @@ class camera_rps:
         """
 
         while True:
-
             # Grab the webcamera's image.
             ret, image = self.camera.read()
             # Resize the raw image into (224-height,224-width) pixels
@@ -124,8 +120,6 @@ class camera_rps:
         cv2.waitKey(2)
         return class_name
     
-
-
     def get_computer_choice(self):
         """
             Randomly choose the computer selection
