@@ -37,6 +37,10 @@ class camera_rps:
             print("It's a tie")
             user_win = 0
             computer_win = 0
+        elif player_choice == "Nothing":
+            print("User selection is null or unclear, try again")
+            user_win = 0
+            computer_win = 0
         elif (
             (player_choice == "Rock" and computer_choice == "Scissors")
             or (player_choice == "Paper" and computer_choice == "Rock")
