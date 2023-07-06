@@ -11,10 +11,7 @@ class camera_rps:
 
     def __init__(self):
         """
-        Initializes the class, definining the number of wins necessary to win the match,
-        initializing the computer and user wins to zero.
-            Parameters:
-                the number of wins necessary to win the match (3 by default)
+        Inits camera_rps class
         """
 
         # Disable scientific notation for clarity
@@ -31,7 +28,7 @@ class camera_rps:
         """
             Defines the rules of the game
                 Parameters: computer and player choices, can be "rock", "paper" or "scissors"
-                Returns: nothing. Prints the winner on screen.
+                Returns: two integers (user_win, computer_win). They will be 1 or 0 depending on the winner
         """
         print(f'Player chooses: {player_choice}')
         print(f'Computer chooses: {computer_choice}')
@@ -54,7 +51,6 @@ class camera_rps:
             computer_win = 1
 
         return user_win, computer_win
-
 
 
     def countdown(self, seconds):
