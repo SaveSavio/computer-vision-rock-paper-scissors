@@ -16,11 +16,11 @@ class camera_rps:
 
         # Disable scientific notation for clarity
         np.set_printoptions(suppress=True)
-        # Load the model
+        # Load the model and labels
         self.model = load_model("keras_Model.h5", compile=False)
-        # Load the labels
+       
         self.class_names = open("labels.txt", "r").readlines()
-        # CAMERA can be 0 or 1 based on default camera of your computer
+        
         self.camera = cv2.VideoCapture(0)
 
 
@@ -67,7 +67,7 @@ class camera_rps:
         
         while time.time() < end_time:
             remaining_seconds = int(end_time - time.time())
-            # print remaining time in [s]
+            
             print(remaining_seconds + 1)
             time.sleep(1)
 
@@ -133,6 +133,6 @@ class camera_rps:
                 Returns: random choice between rock, paper, scissors
         """
         variables = ['Rock', 'Paper', 'Scissors']
-        # randomly chooses from the variables list
+        
         computer_choice = random.choice(variables)
         return computer_choice
