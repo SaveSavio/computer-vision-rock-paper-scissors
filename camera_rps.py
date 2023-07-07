@@ -25,7 +25,6 @@ class camera_rps:
     def get_winner(self, computer_choice, player_choice):
         """
             Defines the rules of the game
-
                 Parameters: computer and player choices, can be "rock", "paper" or "scissors"
                 Returns: two integers (user_win, computer_win). They will be 1 or 0 depending on the winner
         """
@@ -48,6 +47,7 @@ class camera_rps:
             print("You win the turn!")
             user_win = 1
             computer_win = 0
+            #return user_win, computer_win
         else:
             print("You lost the turn.")
             user_win = 0
@@ -75,9 +75,9 @@ class camera_rps:
             
             In your case you only give it one image at a time.
             That means that the first element in the list returned from the model is a list of probabilities
-            for the four different classes.
+            for the four different classes. Print the response of the model if you are unclear of this.
             
-                Parameters: none
+                Parameters:
             
                 Returns: the prediction of the RPS keras model
         """
@@ -94,7 +94,6 @@ class camera_rps:
             # Normalize the image array
             image = (image / 127.5) - 1
             
-            # launch a 3 seconds countdown
             self.countdown(3)
             print('Shoot!')
 
@@ -117,14 +116,19 @@ class camera_rps:
             
             break
 
-        cv2.waitKey(2)
+        #TODO: work on this bit of code to solve the issues with workflow
+        # read the documentation to understand the expectations
+        #self.countdown(3)
+        #self.camera.release()
+        #cv2.destroyAllWindows()
+        cv2.waitKey(2)  # Add this line
         return class_name
     
     def get_computer_choice(self):
         """
             Randomly choose the computer selection
-                Parameters: none
-                Returns: random choice between rock, paper, scissors
+            Parameters: none
+            Returns: random choice between rock, paper, scissors
         """
         variables = ['Rock', 'Paper', 'Scissors']
         
