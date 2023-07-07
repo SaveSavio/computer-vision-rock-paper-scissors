@@ -1,9 +1,8 @@
-# TensorFlow is required for Keras to work
-from keras.models import load_model 
 import cv2
+from keras.models import load_model
 import numpy as np
-import time
 import random
+import time as time
 
 
 class camera_rps:
@@ -58,7 +57,6 @@ class camera_rps:
     def countdown(self, seconds):
         # import a local instance of "time"
         # this is necessary so to not interfere with the get_prediction instance
-        import time as time
 
         start_time = time.time()
         end_time = start_time + seconds

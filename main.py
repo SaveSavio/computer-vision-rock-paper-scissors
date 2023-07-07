@@ -1,5 +1,6 @@
 from camera_rps import camera_rps
 
+
 def play_game():
     """
         Function that allows to play the RPS game through the camera_rps class.
@@ -19,9 +20,9 @@ def play_game():
         player_choice = game.get_prediction()
         # get the computer choice by randomly selecting a c lass
         computer_choice = game.get_computer_choice()
-        # use the method get_winner to determine the winner of the turn
+
         user_win, computer_win = game.get_winner(computer_choice, player_choice)
-        # increment the number of wins
+
         user_wins += user_win
         computer_wins += computer_win
 
@@ -37,7 +38,6 @@ def play_game():
             print(f"User score: {user_wins}\nComputer score: {computer_wins}")
             print('Play another turn')
 
-    # I should add a way of exiting the game (use ESC)
     return
 
 
