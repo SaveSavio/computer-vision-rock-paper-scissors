@@ -37,7 +37,7 @@ def play_game():
             print(f"User score: {user_wins}\nComputer score: {computer_wins}")
             print('Play another turn')
 
-    # I should add a way of exiting the game (use ESC)
+    # TO DO (optional):I should add a way of exiting the game (use ESC)
     return
 
 
